@@ -1,0 +1,10 @@
+--- CMakeLists.txt	2018-06-02 19:22:16.380811252 +0300
++++ CMakeLists1.txt	2018-06-02 20:22:27.150782400 +0300
+@@ -237,6 +237,7 @@
+ 
+ if(USE_CUDA AND FIRST_CUDA)
+   include(cmake/ChooseBlas.cmake)
++  include(3rdparty/mshadow/cmake/mshadow.cmake)
+   include(3rdparty/mshadow/cmake/Utils.cmake)
+   include(cmake/FirstClassLangCuda.cmake)
+   include_directories(${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES})

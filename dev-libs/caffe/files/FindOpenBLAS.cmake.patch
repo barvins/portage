@@ -1,0 +1,11 @@
+--- a/cmake/Modules/FindOpenBLAS.cmake	2018-11-02 17:37:40.809230688 +0200
++++ b/cmake/Modules/FindOpenBLAS.cmake	2018-11-02 16:16:26.519253916 +0200
+@@ -29,7 +29,7 @@
+  )
+ 
+ FIND_PATH(OpenBLAS_INCLUDE_DIR NAMES cblas.h PATHS ${Open_BLAS_INCLUDE_SEARCH_PATHS})
+-FIND_LIBRARY(OpenBLAS_LIB NAMES openblas PATHS ${Open_BLAS_LIB_SEARCH_PATHS})
++FIND_LIBRARY(OpenBLAS_LIB NAMES openblas openblas_threads PATHS ${Open_BLAS_LIB_SEARCH_PATHS})
+ 
+ SET(OpenBLAS_FOUND ON)
+ 

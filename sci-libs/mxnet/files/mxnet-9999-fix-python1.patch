@@ -1,0 +1,12 @@
+--- base.py	2018-06-09 16:15:20.589718603 +0300
++++ base1.py	2018-06-09 16:16:46.399717918 +0300
+@@ -163,7 +163,8 @@
+ def _load_lib():
+     """Load library by searching possible path."""
+     lib_path = libinfo.find_lib_path()
+-    lib = ctypes.CDLL(lib_path[0], ctypes.RTLD_LOCAL)
++    #lib = ctypes.CDLL(lib_path[0], ctypes.RTLD_LOCAL)
++    lib = ctypes.CDLL("libmxnet.so", ctypes.RTLD_LOCAL)
+     # DMatrix functions
+     lib.MXGetLastError.restype = ctypes.c_char_p
+     return lib

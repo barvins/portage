@@ -1,0 +1,20 @@
+--- setup.py	2018-06-09 16:12:08.389720139 +0300
++++ setup1.py	2018-06-09 16:11:02.099720669 +0300
+@@ -43,7 +43,7 @@
+ libinfo = {'__file__': libinfo_py}
+ exec(compile(open(libinfo_py, "rb").read(), libinfo_py, 'exec'), libinfo, libinfo)
+ 
+-LIB_PATH = libinfo['find_lib_path']()
++#LIB_PATH = libinfo['find_lib_path']()
+ __version__ = libinfo['__version__']
+ 
+ sys.path.insert(0, CURRENT_DIR)
+@@ -103,7 +103,7 @@
+       version=__version__,
+       description=open(os.path.join(CURRENT_DIR, 'README.md')).read(),
+       packages=find_packages(),
+-      data_files=[('mxnet', [LIB_PATH[0]])],
++#      data_files=[('mxnet', [LIB_PATH[0]])],
+       url='https://github.com/apache/incubator-mxnet',
+       ext_modules=config_cython(),
+       **kwargs)

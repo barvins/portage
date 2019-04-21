@@ -1,0 +1,11 @@
+--- Makefile	2018-06-02 23:08:15.930702903 +0300
++++ Makefile1	2018-06-03 00:45:49.710656129 +0300
+@@ -177,7 +177,7 @@
+ 		LDFLAGS += -L$(USE_LAPACK_PATH)
+ 	endif
+ 	ifeq ($(USE_BLAS),$(filter $(USE_BLAS),blas openblas atlas mkl))
+-		LDFLAGS += -llapack
++		LDFLAGS += -lreflapack
+ 	endif
+ 	CFLAGS += -DMXNET_USE_LAPACK
+ endif

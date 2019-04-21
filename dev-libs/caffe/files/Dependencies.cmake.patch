@@ -1,0 +1,16 @@
+--- a/Dependencies.cmake	2018-11-02 17:28:48.489233225 +0200
++++ b/cmake/Dependencies.cmake	2018-11-02 17:12:42.569237828 +0200
+@@ -101,11 +101,12 @@
+ # ---[ Python
+ if(BUILD_python)
+   find_package(PythonInterp ${python_version})
+-
+   find_library(Boost_PYTHON_FOUND NAMES
+           python-py${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR}
+           boost_python-py${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR}
+           boost_python${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR}
++          libboost_python-${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}.so
++          libboost_python
+           PATHS ${LIBDIR})
+   if ("${Boost_PYTHON_FOUND}" STREQUAL "Boost_PYTHON_FOUND-NOTFOUND")
+     message(SEND_ERROR "Could NOT find Boost Python Library")

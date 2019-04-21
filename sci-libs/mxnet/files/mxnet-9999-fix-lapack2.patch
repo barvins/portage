@@ -1,0 +1,11 @@
+--- CMakeLists.txt	2018-06-03 09:32:38.500403557 +0300
++++ CMakeLists.txt.new	2018-06-09 11:09:25.756214852 +0300
+@@ -368,7 +368,7 @@
+ if(USE_LAPACK AND NOT MSVC)
+   add_definitions(-DMXNET_USE_LAPACK=1)
+   list(APPEND mxnet_LINKER_LIBS lapack)
+-else(USE_LAPACK)
++elseif(USE_LAPACK)
+   # Workaround for Windows until using new Jenkinsfile.
+   if(BLAS STREQUAL "Open" OR BLAS STREQUAL "open" OR USE_BLAS STREQUAL "Open" OR USE_BLAS STREQUAL "open")
+     add_definitions(-DMXNET_USE_LAPACK=1)
