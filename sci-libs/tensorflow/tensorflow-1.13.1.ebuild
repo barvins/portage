@@ -28,6 +28,7 @@ bazel_external_uris="
 	https://github.com/bazelbuild/rules_docker/archive/a9bb1dab84cdf46e34d1b34b53a17bda129b5eba.tar.gz
         https://github.com/bazelbuild/bazel-toolchains/archive/9a111bd82161c1fbe8ed17a593ca1023fd941c70.tar.gz
         https://github.com/intel/ARM_NEON_2_x86_SSE/archive/1200fe90bb174a6224a525ee60148671a786a71f.tar.gz
+        https://mirror.bazel.build/docs.python.org/2.7/_sources/license.rst.txt
 
         https://github.com/google/googletest/archive/997d343dd680e541ef96ce71ee54a91daf2577a0.zip
         https://github.com/gflags/gflags/archive/v2.2.1.tar.gz
@@ -44,7 +45,10 @@ bazel_external_uris="
         https://github.com/NervanaSystems/ngraph/archive/v0.11.0.tar.gz
         https://github.com/nlohmann/json/archive/v3.4.0.tar.gz
         https://github.com/NervanaSystems/ngraph-tf/archive/v0.9.0.zip
-        
+        https://github.com/keras-team/keras-applications/archive/1.0.6.tar.gz
+        https://download.open-mpi.org/release/hwloc/v2.0/hwloc-2.0.3.tar.gz
+        https://github.com/mborgerding/kissfft/archive/cddf3833fdf24fa84b79be37efdcd348cae0e39c.tar.gz
+        https://github.com/google/or-tools/archive/v6.7.2.tar.gz
 
 
 
@@ -125,9 +129,9 @@ RDEPEND="
 	virtual/jpeg:0
 	cuda? ( >=dev-util/nvidia-cuda-toolkit-8.0.61[profiler] >=dev-libs/cudnn-6.0 )
 	mpi? ( virtual/mpi )
-	sci-libs/keras-applications
 	sci-libs/keras-preprocessing
 "
+#	sci-libs/keras-applications
 
 DEPEND="${RDEPEND}
 	<=dev-util/bazel-0.21.0
@@ -286,6 +290,7 @@ src_configure() {
                 export TF_NEED_TENSORRT=0
                 export TF_CUDA_VERSION=10.1
                 export TF_CUDNN_VERSION=7.5.0
+                export TF_NCCL_VERSION=2.4.2
                 export TF_SET_ANDROID_WORKSPACE=0
                 export TF_CUDA_COMPUTE_CAPABILITIES=6.1
                 export TF_CUDA_CLANG=0
@@ -308,7 +313,7 @@ src_compile() {
 	cd "${S}-${MULTIBUILD_VARIANT}" || die
 	BAZEL_OUTPUT_BASE="${WORKDIR}/bazel-base-${MULTIBUILD_VARIANT}"
 
-#		--jobs 1 \
+
 	ebazel build -s\
 		--verbose_failures \
 		--config=opt $(usex cuda --config=cuda '') \
