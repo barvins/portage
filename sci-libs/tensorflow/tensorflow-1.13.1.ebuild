@@ -130,8 +130,8 @@ RDEPEND="
 	cuda? ( >=dev-util/nvidia-cuda-toolkit-8.0.61[profiler] >=dev-libs/cudnn-6.0 )
 	mpi? ( virtual/mpi )
 	sci-libs/keras-preprocessing
-"
-#	sci-libs/keras-applications
+	sci-libs/keras-applications"
+#P.S bazel build downloads keras applictions but does not install them currently, thus using gentoo keras-applications package
 
 DEPEND="${RDEPEND}
 	<=dev-util/bazel-0.21.0
