@@ -69,7 +69,7 @@ bazel_external_uris="
 	https://github.com/google/farmhash/archive/816a4ae622e964763ca0862d9dbd19324a1eaf45.tar.gz
 	https://github.com/google/flatbuffers/archive/1f5eae5d6a135ff6811724f6c57f911d1f46bb15.tar.gz
 	https://github.com/google/nsync/archive/1.20.1.tar.gz
-        https://github.com/protocolbuffers/protobuf/archive/v3.6.1.3.tar.gz
+        https://github.com/protocolbuffers/protobuf/archive/v3.6.1.2.tar.gz
 	https://github.com/google/re2/archive/2018-10-01.tar.gz
 	https://github.com/google/snappy/archive/1.1.7.tar.gz -> snappy-1.1.7.tar.gz
 	https://github.com/hfp/libxsmm/archive/1.9.tar.gz
@@ -130,7 +130,8 @@ RDEPEND="
 	cuda? ( >=dev-util/nvidia-cuda-toolkit-8.0.61[profiler] >=dev-libs/cudnn-6.0 )
 	mpi? ( virtual/mpi )
 	sci-libs/keras-preprocessing
-	sci-libs/keras-applications"
+	sci-libs/keras-applications
+	dev-libs/nccl"
 #P.S bazel build downloads keras applictions but does not install them currently, thus using gentoo keras-applications package
 
 DEPEND="${RDEPEND}
@@ -143,7 +144,7 @@ S="${WORKDIR}/${MY_P}"
 
 DOCS=( AUTHORS CONTRIBUTING.md ISSUE_TEMPLATE.md README.md RELEASE.md )
 PATCHES=(
-        ${FILESDIR}/protobuf.patch
+#        ${FILESDIR}/protobuf.patch
 #	"${FILESDIR}/0001-pip_package-modularize-build-script-to-allow-distros.patch"
 #	"${FILESDIR}/tensorflow-1.8.0-0002-dont-strip.patch"
 )
@@ -252,6 +253,9 @@ pkg_setup() {
 src_unpack() {
 	# only unpack the main distfile
 	unpack "${P}.tar.gz"
+	#tar -xvf ${FILESDIR}/gpus.tar.gz -C ${S}/third_party/
+	#tar -xvf ${FILESDIR}/tensorrt.tar.gz -C ${S}/third_party/
+	#tar -xvf ${FILESDIR}/nccl.tar.gz -C ${S}/third_party/
 }
 
 src_prepare() {
@@ -288,8 +292,8 @@ src_configure() {
                 export TF_NEED_MPI=$(usex mpi 1 0)
                 export TF_NEED_CUDA=$(usex cuda 1 0)
                 export TF_NEED_TENSORRT=0
-                export TF_CUDA_VERSION=10.1
-                export TF_CUDNN_VERSION=7.5.0
+                export TF_CUDA_VERSION=10
+                export TF_CUDNN_VERSION=7.4.2
                 export TF_NCCL_VERSION=2.4.2
                 export TF_SET_ANDROID_WORKSPACE=0
                 export TF_CUDA_COMPUTE_CAPABILITIES=6.1
